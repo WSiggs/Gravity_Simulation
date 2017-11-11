@@ -1,7 +1,5 @@
 package Physics;
 
-import com.sun.tools.javac.comp.Flow;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -87,7 +85,6 @@ public class Simulator implements ChangeListener, ActionListener
             massInput.setHorizontalAlignment(JFormattedTextField.LEFT);
             massInput.setPreferredSize(new Dimension(50, 20));
 
-            /*
             JLabel massLabel = new JLabel("Mass:", JLabel.LEFT);
             massInput.addPropertyChangeListener(e ->
             {
@@ -99,14 +96,14 @@ public class Simulator implements ChangeListener, ActionListener
                     content.draw((int) rotation, mass);
                 }
             });
-            */
+
             frame.getContentPane().add(content);
             frame.getContentPane().add(slider);
             frame.getContentPane().add(reset);
             wrapper.add(angleLabel);
             wrapper.add(angleInput);
-            //wrapper.add(massLabel);
-            //wrapper.add(massInput);
+            wrapper.add(massLabel);
+            wrapper.add(massInput);
             frame.getContentPane().add(wrapper);
 
             frame.pack();

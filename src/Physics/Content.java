@@ -1,10 +1,10 @@
 package Physics;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferStrategy;
+import java.text.DecimalFormat;
 
 /**
  * @author Siggy
@@ -33,6 +33,7 @@ public class Content extends Canvas
 
     private Point2D vertex;
 
+    private DecimalFormat df;
 
     public Content()
     {
@@ -54,7 +55,12 @@ public class Content extends Canvas
 
         vertex = new Point2D.Double(150 * Math.cos(Math.toRadians(90 + rotation)) + origin.getX(),
                                     150 * Math.sin(Math.toRadians(90 + rotation)) + origin.getY());
+
+        df = new DecimalFormat("0.###");
     }
+
+    double parForce = 0;
+    double perpForce = 0;
 
     public void draw(int rotation, double mass)
     {
@@ -79,8 +85,21 @@ public class Content extends Canvas
 
         g2d.scale(1.2, 1.2);
         g2d.drawString("Angle: " + String.valueOf(rotation), 10, 20);
-        //g2d.drawString("Mass: " + String.valueOf(mass), 10, 35);
+        g2d.drawString("Mass: " + String.valueOf(mass), 10, 35);
 
+        if(mass != 0.0)
+        {
+            g2d.setColor(Color.BLUE);
+            g2d.drawString("Grav. Force: " + df.format(mass * 9.8) + "N", 10, 50);
+            g2d.setColor(Color.RED);
+            if(rotation != 0)
+            {
+                perpForce = ((mass * 9.8) * Math.cos(Math.toRadians(rotation)));
+                parForce = ((mass * 9.8) * Math.sin(Math.toRadians(rotation)));
+                g2d.drawString("Perp. contact Force: " + df.format(perpForce) + "N", 10, 65);
+                g2d.drawString("Parallel contact Force: " + df.format(parForce) + "N", 10, 80);
+            }
+        }
         g2d.scale(1.0/1.2, 1.0/1.2);
         g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(4));
